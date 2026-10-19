@@ -20,16 +20,11 @@ use Illuminate\Http\Response;
 class BookController extends Controller
 {
     /**
-     * Display a listing of books with pagination (default: 8 per page).
+     * Display a listing of all books without pagination.
      */
     public function index(BookIndexRequest $request, GetBooksAction $action): AnonymousResourceCollection
     {
-        $books = $action->execute(
-            search: $request->validated('search'),
-            perPage: (int) ($request->validated('per_page', 8)),
-        );
-
-        return BookResource::collection($books);
+        return BookResource::collection($action->execute());
     }
 
     /**
